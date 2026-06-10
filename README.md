@@ -44,9 +44,9 @@
 
 ---
 
-## 참고 교재
+## 참고
 [Kodeco - Metal by Tutorials](https://www.kodeco.com/books/metal-by-tutorials/v4.0/chapters/vi-introduction)
-
+[met-materials](https://github.com/kodecocodes/met-materials/tree/editions/4.0)
 ---
 
 ## 💡 나만의 규칙 (완벽주의 강박 방어용)
