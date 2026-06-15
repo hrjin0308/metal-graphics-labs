@@ -18,7 +18,7 @@
 공부가 완료된 주차는 체크박스(`[x]`)로 표시합니다. 자세한 코드와 결과물은 각 디렉토리에서 확인할 수 있습니다.
 
 ### 🍏 Metal 기초 & 3D 수학
-- [ ] **01-Metal-Infrastructure:** Metal 인프라 세팅 (`MTKView`, `CommandQueue`)
+- [x] **01-Metal-Infrastructure:** Metal 인프라 세팅 (`MTKView`, `CommandQueue`)
 - [ ] **02-Vertex-Buffer:** 정점 데이터 GPU 버퍼 전달 (`MTLBuffer`)
 - [ ] **03-Hello-Triangle:** MSL 기초와 그라데이션 삼각형 렌더링
 - [ ] **04-Refactoring-06:** 6월 코드 리팩토링 및 하드웨어 흐름 정립
