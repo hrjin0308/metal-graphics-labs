@@ -6,11 +6,15 @@
 
 모델링은 Maya, Blender 등에서 정점(vertex) 기반으로 제작.
 
-![A train model in Blender](https://assets.alexandria.kodeco.com/books/6efcbfb1f9f195ced75feb43f202ab14a8cd87832cef086976b16658e23944a8/images/dbedebc97b8fdfbf87efb8c2dbe73a0e/original.png =450x#center)
+<div align="center">
+<img src="./img/01.png" width=450>
+</div>
 
-모델 로더가 정점 리스트를 읽어 GPU로 전달 → 쉐이더 함수가 처리 → 최종 이미지 생성. 이 전체 흐름을 **렌더링 파이프라인(Rendering pipeline)**이라고 하며, 개발자가 직접 제어하는 **정점 함수(Vertex function)**와 **조각 함수(Fragment function)**로 구성됨.
+모델 로더가 정점 리스트를 읽어 GPU로 전달 → 쉐이더 함수가 처리 → 최종 이미지 생성. 이 전체 흐름을 **렌더링 파이프라인(Rendering pipeline)** 이라고 하며, 개발자가 직접 제어하는 **정점 함수(Vertex function)** 와 **조각 함수(Fragment function)** 로 구성됨.
 
-![Shading techniques cause reflection](https://assets.alexandria.kodeco.com/books/6efcbfb1f9f195ced75feb43f202ab14a8cd87832cef086976b16658e23944a8/images/7b64e3f122c46b5b290d0329171fb808/original.png =450x#center)
+<div align="center">
+<img src="./img/02.png" width=450>
+</div>
 
 ## 프레임(Frame)이란?
 부드러운 화면을 위해 GPU는 초당 60번 정지 이미지를 렌더링. 이 이미지 하나가 **프레임(Frame)**, 그 속도가 **프레임 레이트(Frame rate)**. 버벅임은 프레임 레이트 저하가 원인. 원하는 효과와 하드웨어 성능 한계 사이의 균형이 중요.
@@ -19,7 +23,7 @@
 
 원근감·쉐이딩 없이 평면처럼 보이는 구체(Sphere)를 렌더링. Metal 렌더링 시퀀스는 앱 규모에 상관없이 동일.
 
-![](https://assets.alexandria.kodeco.com/books/6efcbfb1f9f195ced75feb43f202ab14a8cd87832cef086976b16658e23944a8/images/78bb458f8d2e961d349c6c5e6c20e0a3/original.png)
+![](./img/03.png)
 
 
 ### The Metal View
@@ -71,7 +75,7 @@ let mesh = try MTKMesh(mesh: mdlMesh, device: device)
 ### Queues, Buffers and Encoders
 각 프레임은 GPU에 전송할 명령(Command)들의 묶음. **렌더 커맨드 인코더** → **커맨드 버퍼** → **커맨드 큐** 순으로 계층화됨.
 
-![](https://assets.alexandria.kodeco.com/books/6efcbfb1f9f195ced75feb43f202ab14a8cd87832cef086976b16658e23944a8/images/5b45e1944c12a5bc277620d74fe79e3d/original.png)
+![](./img/04.png)
 
 ```swift
 guard let commandQueue = device.makeCommandQueue() else {
@@ -81,11 +85,11 @@ guard let commandQueue = device.makeCommandQueue() else {
 
 디바이스와 커맨드 큐는 앱 시작 시 한 번 생성하여 앱 전체에서 재사용. 초기화 단계에서 모델 데이터 버퍼 로드, 쉐이더 생성, 파이프라인 상태 객체를 미리 생성해 두고, 매 프레임마다 커맨드 버퍼와 렌더 커맨드 인코더를 생성.
 
-![](https://assets.alexandria.kodeco.com/books/6efcbfb1f9f195ced75feb43f202ab14a8cd87832cef086976b16658e23944a8/images/d05744452c22a7adffe9f1faf772549f/original.png)
+![](./img/05.png)
 
 ### Shader Functions
 
-GPU에서 실행되는 소형 프로그램. C++ 서브셋인 **Metal Shading Language(MSL)**로 작성. 일반적으로 `.metal` 파일로 관리하지만, 예제에서는 문자열로 직접 추가.
+GPU에서 실행되는 소형 프로그램. C++ 서브셋인 **Metal Shading Language(MSL)** 로 작성. 일반적으로 `.metal` 파일로 관리하지만, 예제에서는 문자열로 직접 추가.
 
 ```swift
 let shader = """
@@ -119,7 +123,7 @@ let fragmentFunction = library.makeFunction(name: "fragment_main")
 
 ### The Pipeline State
 
-**파이프라인 상태(Pipeline state)**는 픽셀 포맷, 뎁스 값, 쉐이더 함수 등 GPU가 필요로 하는 모든 렌더링 정보를 담고 있음. 상태가 고정되면 GPU는 더 효율적으로 동작. 직접 생성 불가하며, 반드시 **디스크립터(Descriptor)**를 통해 생성.
+**파이프라인 상태(Pipeline state)** 는 픽셀 포맷, 뎁스 값, 쉐이더 함수 등 GPU가 필요로 하는 모든 렌더링 정보를 담고 있음. 상태가 고정되면 GPU는 더 효율적으로 동작. 직접 생성 불가하며, 반드시 **디스크립터(Descriptor)** 를 통해 생성.
 
 ```swift
 let pipelineDescriptor = MTLRenderPipelineDescriptor()
@@ -149,7 +153,7 @@ let pipelineState = try device.makeRenderPipelineState(descriptor: pipelineDescr
 #### 렌더 패스(Render Passes)
 사실적인 렌더링(그림자, 조명, 반사 등)은 독립된 여러 렌더 패스로 나눠 처리. 예) 그림자 패스에서 그레이스케일 그림자 텍스처 생성 → 두 번째 패스에서 컬러 렌더링 → 두 텍스처를 합쳐 최종 출력.
 
-![](https://assets.alexandria.kodeco.com/books/6efcbfb1f9f195ced75feb43f202ab14a8cd87832cef086976b16658e23944a8/images/672f24db26eac2e288d4a33a9b8b4a59/original.png)
+![](./img/06.png)
 
 이 파트에서는 단일 렌더 패스만 사용. `MTKView`는 드로어블 텍스처를 담은 렌더 패스 디스크립터를 기본 제공.
 
@@ -220,7 +224,7 @@ PlaygroundPage.current.liveView = view
 
 > 참고: 플레이그라운드는 정상적인 상태에서도 간혹 컴파일이 되지 않거나 실행되지 않을 때가 있음. 코드를 올바르게 작성한 것이 확실하다면, Xcode를 재시작하고 플레이그라운드를 다시 로드한 후, 실행하기 전에 1~2초 정도 기다려야 함.
 
-![](https://assets.alexandria.kodeco.com/books/6efcbfb1f9f195ced75feb43f202ab14a8cd87832cef086976b16658e23944a8/images/3e0a2c9c31354e3b9fd718daa3025b08/original.png)
+![](./img/07.png)
 
 
 ## 핵심 포인트(Key Points)
