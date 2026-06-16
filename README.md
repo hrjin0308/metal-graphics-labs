@@ -44,10 +44,12 @@
 
 ---
 
-## 참고
+## 📚 Acknowledgments
+본 레포지토리는 개인적인 기술 연구 및 실습 검증을 위한 공간입니다.  
+전체적인 구현 구조와 학습 로직, 그리고 실습 에셋은 아래의 공식 자료들을 참고하고 가이드를 받아 작성되었습니다.
 
-[Kodeco - Metal by Tutorials](https://www.kodeco.com/books/metal-by-tutorials/v4.0/chapters/vi-introduction)  
-[met-materials](https://github.com/kodecocodes/met-materials/tree/editions/4.0)
+- **교재:** [Kodeco - Metal by Tutorials](https://www.kodeco.com/books/metal-by-tutorials/v4.0/chapters/vi-introduction)  
+- **공식 소스 코드 & 에셋:** [met-materials](https://github.com/kodecocodes/met-materials/tree/editions/4.0)
 
 ---
 
