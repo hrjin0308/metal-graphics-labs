@@ -19,7 +19,7 @@
 
 ### 🍏 Metal 기초 & 3D 수학
 - [x] **01-Metal-Infrastructure:** Metal 인프라 세팅 (`MTKView`, `CommandQueue`)
-- [ ] **02-Vertex-Buffer:** 정점 데이터 GPU 버퍼 전달 (`MTLBuffer`)
+- [x] **02-Vertex-Buffer:** 정점 데이터 GPU 버퍼 전달 (`MTLBuffer`)
 - [ ] **03-Hello-Triangle:** MSL 기초와 그라데이션 삼각형 렌더링
 - [ ] **04-Refactoring-06:** 6월 코드 리팩토링 및 하드웨어 흐름 정립
 - [ ] **05-Matrix-Rotation:** simd 행렬 연산 기반 2D 삼각형 회전 제어
